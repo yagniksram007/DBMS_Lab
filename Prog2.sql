@@ -1,0 +1,620 @@
+CREATE TABLE PUBLISHER(
+	PUBLISHER_NAME VARCHAR(15),
+	ADDRESS VARCHAR(20),
+	PHONE INT,
+	PRIMARY KEY(PUBLISHER_NAME)
+);
+
+
+INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE');
+
+Table created.
+
+SQL> INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE');
+Enter value for name: RAM
+Enter value for address: KAPIKAD
+Enter value for phone: 9876543219
+old   1: INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO PUBLISHER VALUES('RAM', 'KAPIKAD', '9876543219')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE');
+Enter value for name: KRISHNA
+Enter value for address: BEJAI
+Enter value for phone: 8765432198
+old   1: INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO PUBLISHER VALUES('KRISHNA', 'BEJAI', '8765432198')
+
+1 row created.
+
+SQL> INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE');
+Enter value for name: RADHA
+Enter value for address: ADYAR
+Enter value for phone: 9786543219
+old   1: INSERT INTO PUBLISHER VALUES('&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO PUBLISHER VALUES('RADHA', 'ADYAR', '9786543219')
+
+1 row created.
+
+SQL> SELECT * FROM PUBLISHER;
+
+PUBLISHER_NAME  ADDRESS                   PHONE
+--------------- -------------------- ----------
+RAM             KAPIKAD              9876543219
+KRISHNA         BEJAI                8765432198
+RADHA           ADYAR                9786543219
+
+
+
+CREATE TABLE lIBRARY_PROGRAMME(
+	PROGRAMME_ID VARCHAR(10),
+	PROGRAMME_NAME VARCHAR(15),
+	ADDRESS VARCHAR(20),
+	PRIMARY KEY(PROGRAMME_ID)
+);
+
+Table created.
+
+
+
+INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRESS');
+
+
+
+
+SQL> INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRESS');
+Enter value for programme_id: P1
+Enter value for programme_name: PUBLIC_LIB
+Enter value for address: HAMPANKATTA
+old   1: INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRESS')
+new   1: INSERT INTO LIBRARY_PROGRAMME VALUES('P1','PUBLIC_LIB', 'HAMPANKATTA')
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRESS');
+Enter value for programme_id: P2
+Enter value for programme_name: SCEM_LIB
+Enter value for address: ADYAR
+old   1: INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRESS')
+new   1: INSERT INTO LIBRARY_PROGRAMME VALUES('P2','SCEM_LIB', 'ADYAR')
+
+1 row created.
+
+
+SELECT * FROM LIBRARY_PROGRAMME;
+
+PROGRAMME_ PROGRAMME_NAME  ADDRESS
+---------- --------------- --------------------
+P1         PUBLIC_LIB      HAMPANKATTA
+P2         SCEM_LIB        ADYAR
+
+
+
+
+
+CREATE TABLE BOOK(
+	BOOK_ID VARCHAR(10),
+	TITLE VARCHAR(20),
+	PUBLISHER_NAME VARCHAR(15),
+	PUB_YEAR INT,
+	PRIMARY KEY(BOOK_ID),
+	FOREIGN KEY(PUBLISHER_NAME) REFERENCES PUBLISHER(PUBLISHER_NAME) ON DELETE CASCADE)
+	PARTITION BY RANGE(PUB_YEAR)(PARTITION P VALUES LESS THAN (2024));
+
+
+INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+
+
+SELECT * FROM BOOK;
+
+
+
+
+SQL> CREATE TABLE BOOK(
+  2   BOOK_ID VARCHAR(10),
+  3   TITLE VARCHAR(20),
+  4   PUBLISHER_NAME VARCHAR(15),
+  5   PUB_YEAR INT,
+  6   PRIMARY KEY(BOOK_ID),
+  7   FOREIGN KEY(PUBLISHER_NAME) REFERENCES PUBLISHER(PUBLISHER_NAME) ON DELETE CASCADE)
+  8   PARTITION BY RANGE(PUB_YEAR)(PARTITION P VALUES LESS THAN (2024));
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B1
+Enter value for title: CREATIVE MINDS
+Enter value for publisher_name: KRISHNA
+Enter value for pub_year: 2022
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B1','CREATIVE MINDS', 'KRISHNA', '2022')
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: b2
+Enter value for title: 
+Enter value for publisher_name: 
+Enter value for pub_year: 
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('b2','', '', '')
+INSERT INTO BOOK VALUES('b2','', '', '')
+            *
+ERROR at line 1:
+ORA-14400: inserted partition key does not map to any partition
+
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B1
+Enter value for title: ADVENTURE LIFE
+Enter value for publisher_name: RAM
+Enter value for pub_year: 2024
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B1','ADVENTURE LIFE', 'RAM', '2024')
+INSERT INTO BOOK VALUES('B1','ADVENTURE LIFE', 'RAM', '2024')
+            *
+ERROR at line 1:
+ORA-14400: inserted partition key does not map to any partition
+
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B2
+Enter value for title: ADVENTURE_LIFE
+Enter value for publisher_name: RAM
+Enter value for pub_year: 2024
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B2','ADVENTURE_LIFE', 'RAM', '2024')
+INSERT INTO BOOK VALUES('B2','ADVENTURE_LIFE', 'RAM', '2024')
+            *
+ERROR at line 1:
+ORA-14400: inserted partition key does not map to any partition
+
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B2
+Enter value for title: ADVENTURE_LIFE
+Enter value for publisher_name: RAM
+Enter value for pub_year: 2021
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B2','ADVENTURE_LIFE', 'RAM', '2021')
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B3
+Enter value for title: SUPREME_LOVE
+Enter value for publisher_name: RADHA
+Enter value for pub_year: 2020
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B3','SUPREME_LOVE', 'RADHA', '2020')
+
+1 row created.
+
+SQL> SELECT * FROM BOOK;
+
+BOOK_ID    TITLE                PUBLISHER_NAME    PUB_YEAR
+---------- -------------------- --------------- ----------
+B1         CREATIVE MINDS       KRISHNA               2022
+B2         ADVENTURE_LIFE       RAM                   2021
+B3         SUPREME_LOVE         RADHA                 2020
+
+
+
+
+UPDATE BOOK
+SET TITLE = 'CREATIVE_MINDS'
+WHERE BOOK_ID ='B1';
+
+
+SQL> SELECT * FROM BOOK;
+
+BOOK_ID    TITLE                PUBLISHER_NAME    PUB_YEAR
+---------- -------------------- --------------- ----------
+B1         CREATIVE_MINDS       KRISHNA               2022
+B2         ADVENTURE_LIFE       RAM                   2021
+B3         SUPREME_LOVE         RADHA                 2020 	
+
+
+
+
+
+CREATE TABLE BORROWERS(
+	CARD_NO VARCHAR(10),
+	NAME VARCHAR(20),
+	ADDRESS VARCHAR(20),
+	PHONE INT,
+	PRIMARY KEY(CARD_NO)
+);
+
+
+INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE');
+
+
+SQL> INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRES
+Enter value for programme_id: P1
+Enter value for programme_name: PUBLIC_LIB
+Enter value for address: HAMPANKATTA
+old   1: INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&AD
+new   1: INSERT INTO LIBRARY_PROGRAMME VALUES('P1','PUBLIC_LIB', 'HAMPANKATTA')
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&ADDRES
+Enter value for programme_id: P2
+Enter value for programme_name: SCEM_LIB
+Enter value for address: ADYAR
+old   1: INSERT INTO LIBRARY_PROGRAMME VALUES('&PROGRAMME_ID','&PROGRAMME_NAME', '&AD
+new   1: INSERT INTO LIBRARY_PROGRAMME VALUES('P2','SCEM_LIB', 'ADYAR')
+
+1 row created.
+
+SQL> CREATE TABLE BORROWERS(
+  2   CARD_NO VARCHAR(10),
+  3   NAME VARCHAR(20),
+  4   ADDRESS VARCHAR(20),
+  5   PHONE INT,
+  6   PRIMARY KEY(CARD_NO)
+  7  );
+
+Table created.
+
+SQL> INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE');
+Enter value for card_no: C1
+Enter value for name: ARJUN
+Enter value for address: MANGALURU
+Enter value for phone: 7654326785
+old   1: INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO BORROWERS VALUES('C1','ARJUN', 'MANGALURU', '7654326785')
+
+1 row created.
+
+SQL> INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE');
+Enter value for card_no: C2
+Enter value for name: BALRAMA
+Enter value for address: LADYHILL
+Enter value for phone: 8976543678
+old   1: INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO BORROWERS VALUES('C2','BALRAMA', 'LADYHILL', '8976543678')
+
+1 row created.
+
+SQL> INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE');
+Enter value for card_no: C3
+Enter value for name: SITA
+Enter value for address: KOTTARA
+Enter value for phone: 8768594376
+old   1: INSERT INTO BORROWERS VALUES('&CARD_NO','&NAME', '&ADDRESS', '&PHONE')
+new   1: INSERT INTO BORROWERS VALUES('C3','SITA', 'KOTTARA', '8768594376')
+
+1 row created.
+
+
+
+SELECT * FROM BORROWERS;
+
+CARD_NO    NAME                 ADDRESS                   PHONE
+---------- -------------------- -------------------- ----------
+C1         ARJUN                MANGALURU            7654326785
+C2         BALRAMA              LADYHILL             8976543678
+C3         SITA                 KOTTARA              8768594376
+
+
+
+
+
+
+CREATE TABLE BOOK_AUTHOR(
+	BOOK_ID VARCHAR(10),
+	AUTHOR_NAME VARCHAR(20),
+	FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE
+);
+
+
+INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME');
+
+
+
+
+SELECT * FROM BOOK_AUTHOR;
+
+
+
+SQL> CREATE TABLE BOOK_AUTHOR(
+  2   BOOK_ID VARCHAR(10),
+  3   AUTHOR_NAME VARCHAR(20),
+  4   FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE
+  5  );
+
+Table created.
+
+SQL> INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME');
+Enter value for book_id: A1
+Enter value for author_name: HANUMAN
+old   1: INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME')
+new   1: INSERT INTO BOOK_AUTHOR VALUES('A1','HANUMAN')
+INSERT INTO BOOK_AUTHOR VALUES('A1','HANUMAN')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (4SF21CI057.SYS_C00269898) violated - parent
+key not found
+
+
+SQL> INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME');
+Enter value for book_id: B1
+Enter value for author_name: HANUMAN
+old   1: INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME')
+new   1: INSERT INTO BOOK_AUTHOR VALUES('B1','HANUMAN')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME');
+Enter value for book_id: B3
+Enter value for author_name: SHIVA
+old   1: INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME')
+new   1: INSERT INTO BOOK_AUTHOR VALUES('B3','SHIVA')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME');
+Enter value for book_id: B2
+Enter value for author_name: VISHNU
+old   1: INSERT INTO BOOK_AUTHOR VALUES('&BOOK_ID','&AUTHOR_NAME')
+new   1: INSERT INTO BOOK_AUTHOR VALUES('B2','VISHNU')
+
+1 row created.
+
+SQL> SELECT * FROM BOOK_AUTHOR;
+
+BOOK_ID    AUTHOR_NAME
+---------- --------------------
+B1         HANUMAN
+B3         SHIVA
+B2         VISHNU
+
+
+
+
+
+
+CREATE TABLE BOOK_COPIES(
+	BOOK_ID VARCHAR(10),
+	PROGRAMME_ID VARCHAR(10),
+	NO_OF_COPIES INT,
+	FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE,
+	FOREIGN KEY(PROGRAMME_ID) REFERENCES LIBRARY_PROGRAMME(PROGRAMME_ID) ON DELETE CASCADE
+);
+
+
+INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES');
+
+SELECT * FROM BOOK_COPIES;
+
+
+
+SQL> 
+SQL> CREATE TABLE BOOK_COPIES(
+  2   BOOK_ID VARCHAR(10),
+  3   PROGRAMME_ID VARCHAR(10),
+  4   NO_OF_COPIES INT,
+  5   FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE,
+  6   FOREIGN KEY(PROGRAMME_ID) REFERENCES LIBRARY_PROGRAMME(PROGRAMME_ID) ON DELETE CASCADE
+  7  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES');
+Enter value for book_id: B2
+Enter value for programme_id: P1
+Enter value for no_of_copies: 10
+old   1: INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES')
+new   1: INSERT INTO BOOK_COPIES VALUES('B2','P1','10')
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES');
+Enter value for book_id: B1
+Enter value for programme_id: P3
+Enter value for no_of_copies: 15
+old   1: INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES')
+new   1: INSERT INTO BOOK_COPIES VALUES('B1','P3','15')
+INSERT INTO BOOK_COPIES VALUES('B1','P3','15')
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (4SF21CI057.SYS_C00269939) violated - parent
+key not found
+
+
+SQL> 
+SQL> INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES');
+Enter value for book_id: B1
+Enter value for programme_id: P2
+Enter value for no_of_copies: 15
+old   1: INSERT INTO BOOK_COPIES VALUES('&BOOK_ID','&PROGRAMME_ID','&NO_OF_COPIES')
+new   1: INSERT INTO BOOK_COPIES VALUES('B1','P2','15')
+
+1 row created.
+
+SQL> 
+SQL> SELECT * FROM BOOK_COPIES;
+
+BOOK_ID    PROGRAMME_ NO_OF_COPIES
+---------- ---------- ------------
+B2         P1                   10
+B1         P2                   15
+
+
+
+
+
+CREATE TABLE BOOK_LENDING(
+	BOOK_ID VARCHAR(10),
+	PROGRAMME_ID VARCHAR(20),
+	CARD_NO VARCHAR(10),
+	DATE_OUT DATE,
+	DUE_DATE DATE,
+	FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE,
+	FOREIGN KEY(PROGRAMME_ID) REFERENCES LIBRARY_PROGRAMME(PROGRAMME_ID) ON DELETE CASCADE,
+	FOREIGN KEY(CARD_NO) REFERENCES BORROWERS(CARD_NO) ON DELETE CASCADE
+);
+
+Table created.
+
+INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DATE');
+
+
+SELECT * FROM BOOK_LENDING;
+
+
+
+SQL> CREATE TABLE BOOK_LENDING(
+  2   BOOK_ID VARCHAR(10),
+  3   PROGRAMME_ID VARCHAR(20),
+  4   CARD_NO VARCHAR(10),
+  5   DATE_OUT DATE,
+  6   DUE_DATE DATE,
+  7   FOREIGN KEY(BOOK_ID) REFERENCES BOOK(BOOK_ID) ON DELETE CASCADE,
+  8   FOREIGN KEY(PROGRAMME_ID) REFERENCES LIBRARY_PROGRAMME(PROGRAMME_ID) ON DELETE CASCADE,
+  9   FOREIGN KEY(CARD_NO) REFERENCES BORROWERS(CARD_NO) ON DELETE CASCADE
+ 10  );
+
+Table created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DATE');
+
+Enter value for book_id: B1
+Enter value for programme_id: P2
+Enter value for card_no: C1
+Enter value for date_out: 12-DEC-23
+Enter value for due_date: 31-DEC-23
+old   1: INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DAT
+new   1: INSERT INTO BOOK_LENDING VALUES('B1','P2','C1','12-DEC-23','31-DEC-23')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DATE');
+
+Enter value for book_id: B2
+Enter value for programme_id: P1
+Enter value for card_no: C3
+Enter value for date_out: 17-JUN-23
+Enter value for due_date: 30-JUN-23
+old   1: INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DAT
+new   1: INSERT INTO BOOK_LENDING VALUES('B2','P1','C3','17-JUN-23','30-JUN-23')
+
+1 row created.
+
+SQL> INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DATE');
+
+Enter value for book_id: B3
+Enter value for programme_id: P2
+Enter value for card_no: C2
+Enter value for date_out: 15-APR-23
+Enter value for due_date: 27-APR-23
+old   1: INSERT INTO BOOK_LENDING VALUES('&BOOK_ID','&PROGRAMME_ID','&CARD_NO','&DATE_OUT','&DUE_DAT
+new   1: INSERT INTO BOOK_LENDING VALUES('B3','P2','C2','15-APR-23','27-APR-23')
+
+1 row created.
+
+SQL> 
+SQL> SELECT * FROM BOOK_LENDING;
+
+BOOK_ID    PROGRAMME_ID         CARD_NO    DATE_OUT  DUE_DATE
+---------- -------------------- ---------- --------- ---------
+B1         P2                   C1         12-DEC-23 31-DEC-23
+B2         P1                   C3         17-JUN-23 30-JUN-23
+
+
+
+
+
+
+QUERY 1:
+
+SELECT B.BOOK_ID, B.TITLE, B.PUBLISHER_NAME, A.AUTHOR_NAME, C.NO_OF_COPIES
+FROM BOOK B, BOOK_AUTHOR A, BOOK_COPIES C
+WHERE B.BOOK_ID = A.BOOK_ID AND A.BOOK_ID = C.BOOK_ID AND A. BOOK_ID = B. BOOK_ID;
+
+
+
+SQL> SELECT B.BOOK_ID, B.TITLE, B.PUBLISHER_NAME, A.AUTHOR_NAME, C.NO_OF_COPIES
+  2  FROM BOOK B, BOOK_AUTHOR A, BOOK_COPIES C
+  3  WHERE B.BOOK_ID = A.BOOK_ID AND A.BOOK_ID = C.BOOK_ID AND A. BOOK_ID = B. BOOK_ID;
+
+BOOK_ID    TITLE                PUBLISHER_NAME  AUTHOR_NAME
+---------- -------------------- --------------- --------------------
+NO_OF_COPIES
+------------
+B1         CREATIVE_MINDS       KRISHNA         HANUMAN
+          15
+
+B2         ADVENTURE_LIFE       RAM             VISHNU
+          10
+
+
+
+
+
+QUERY 2:
+
+SELECT CARD_NO, BOR_NAME, BOR_ADDRESS, BOR_PHONE
+FROM BORROWER
+WHERE CARD_NO IN
+(SELECT DISTINCT CARD_NO FROM BOOK_LENDING
+WHERE DATE_OUT BETWEEN '01-JAN-2023' AND '20-JUN-2023'
+GROUP BY (CARD_NO) HAVING COUNT (DATE_OUT)>3);
+
+
+QUERY 3:
+DELETE FROM BOOK WHERE BOOK_ID='B1';
+
+
+QUERY 4:
+
+SQL> CREATE TABLE BOOK(
+  2   BOOK_ID VARCHAR(10),
+  3   TITLE VARCHAR(20),
+  4   PUBLISHER_NAME VARCHAR(15),
+  5   PUB_YEAR INT,
+  6   PRIMARY KEY(BOOK_ID),
+  7   FOREIGN KEY(PUBLISHER_NAME) REFERENCES PUBLISHER(PUBLISHER_NAME) ON DELETE CASCADE)
+  8   PARTITION BY RANGE(PUB_YEAR)(PARTITION P VALUES LESS THAN (2024));
+
+
+INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+
+
+SQL> INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR');
+Enter value for book_id: B4
+Enter value for title: PROMISE
+Enter value for publisher_name: KASHI
+Enter value for pub_year: 2030
+old   1: INSERT INTO BOOK VALUES('&BOOK_ID','&TITLE', '&PUBLISHER_NAME', '&PUB_YEAR')
+new   1: INSERT INTO BOOK VALUES('B4','PROMISE', 'KASHI', '2030')
+INSERT INTO BOOK VALUES('B4','PROMISE', 'KASHI', '2030')
+            *
+ERROR at line 1:
+ORA-14400: inserted partition key does not map to any partition
+
+
+QUERY 5:
+
+CREATE VIEW BCL AS
+SELECT A.BOOK_ID, A.BOOK_TITLE, B.PROGRAMME_ID, B.NO_OF_COPIES
+FROM BOOK A, BOOK_COPIES B
+WHERE B.BOOK_ID = A.BOOK_ID;
+SELECT * FROM BCL;
+
+
+
