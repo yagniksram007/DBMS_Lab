@@ -540,7 +540,7 @@ B2         P1                   C3         17-JUN-23 30-JUN-23
 
 
 
-QUERY 1:
+-- QUERY 1: Retrieve the details of all books in library_id, title, name of publisher, author and no of copies in each programme
 
 SELECT B.BOOK_ID, B.TITLE, B.PUBLISHER_NAME, A.AUTHOR_NAME, C.NO_OF_COPIES
 FROM BOOK B, BOOK_AUTHOR A, BOOK_COPIES C
@@ -566,7 +566,7 @@ B2         ADVENTURE_LIFE       RAM             VISHNU
 
 
 
-QUERY 2:
+-- QUERY 2: Get the particulars of borrowers who borrowed more than 3 books from JAN 2023 TO JUNE 2023
 
 SELECT CARD_NO, BOR_NAME, BOR_ADDRESS, BOR_PHONE
 FROM BORROWER
@@ -576,11 +576,13 @@ WHERE DATE_OUT BETWEEN '01-JAN-2023' AND '20-JUN-2023'
 GROUP BY (CARD_NO) HAVING COUNT (DATE_OUT)>3);
 
 
-QUERY 3:
+-- QUERY 3: Delete a book in book table and update the content of other tables to reflect this data manipulation
+
+
 DELETE FROM BOOK WHERE BOOK_ID='B1';
 
 
-QUERY 4:
+-- QUERY 4: Partition in the book tablel based on year of publications and demonstrate its owkrng with simple query 
 
 SQL> CREATE TABLE BOOK(
   2   BOOK_ID VARCHAR(10),
@@ -608,7 +610,7 @@ ERROR at line 1:
 ORA-14400: inserted partition key does not map to any partition
 
 
-QUERY 5:
+-- QUERY 5: Create a view of all books and no of copies thatare currently available in the library
 
 CREATE VIEW BCL AS
 SELECT A.BOOK_ID, A.BOOK_TITLE, B.PROGRAMME_ID, B.NO_OF_COPIES

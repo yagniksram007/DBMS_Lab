@@ -293,7 +293,7 @@ USN                  SUBCODE         SSID                      TEST1      TEST2
 
 =============================================================
 
-QUERY 1:
+-- QUERY 1: List all the students details studing in fourth sem 'c' section
 
 SELECT A.*, B.SEM, B.SEC
 FROM STUDENTS A, SEMSEC B, CLASS C
@@ -307,7 +307,7 @@ USN                  SNAME           ADDRESS                   PHONE GENDER
          4 C
 
 
-QUERY 2:
+-- QUERY 2: Compute the total number of males and females students in each semester and each section
 
 SELECT B.SEM, B.SEC, COUNT (CASE WHEN A.GENDER = 'MALE' THEN B.SSID END) AS MALECOUNT,
 COUNT(CASE WHEN A.GENDER='FEMALE' THEN B.SSID END) AS FEMALECOUNT
@@ -322,7 +322,7 @@ GROUP BY B.SEM, B.SEC;
         4 C            1           0
 
 
-QUERY 3:
+-- QUERY 3: Create a view of test1 marks of student USN '4SF21CD001' in all courses.
 
 CREATE VIEW TEST1_MARKS AS
 SELECT SUBCODE, TEST1 FROM IAMARKS
@@ -342,7 +342,7 @@ SUBCODE              TEST1
 C2                      25
 
 
-QUERY 4:
+-- QUERY 4: Calculate the finalIA (avg of all three test marks) and update the corresponding table for all students.
 
 UPDATE IAMARKS SET FINALIA=(TEST1+TEST2+TEST3)/3;
 SELECT * FROM IAMARKS;
@@ -367,7 +367,7 @@ USN                  SUBCODE         SSID                      TEST1      TEST2
         26         25
 
 
-QUERY 5:
+QUERY 5: Categorise students based on following criteria
 
 SELECT S.*,IA.FINALIA,
 (CASE
